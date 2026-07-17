@@ -1,6 +1,7 @@
 stages:
   - test
   - build
+  - dockerize
   - deploy
 
 sonarqube-check:
@@ -11,13 +12,25 @@ sonarqube-check:
   only:
     - main
 
-docker-build:
+maven-build:
   stage: build
+  image: maven:3.8-openjdk-11
+  script:
+    - cd spring-boot-app
+    - mvn clean package -DskipTests
+  artifacts:
+    paths:
+      - spring-boot-app/target/*.jar  
+
+docker-build:
+  stage: dockerize
   image: docker:latest
   services:
     - docker:dind
   script:
     - cd spring-boot-app
+   
+    - ls -la target/ 
     - docker build -t my-app:latest .
     - docker save my-app:latest > ../my-app.tar
   artifacts:
