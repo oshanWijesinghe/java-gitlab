@@ -1,4 +1,4 @@
-# You can change this base image to anything else wtf
+#vdvds#dsdsou can change this base image to anything else wtfi#
 # But madsdsdcsdcke sure to use the correct version owtdffff Java
 FROM adoptopenjdk/openjdk11:alpine-jre
 
